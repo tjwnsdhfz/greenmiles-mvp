@@ -88,3 +88,4 @@ See:
 
 - `docs/LOCAL_DEV_SYNC.md`
 - `docs/GIT_WORKFLOW.md`
+- `docs/GITHUB_PORTFOLIO.md`
