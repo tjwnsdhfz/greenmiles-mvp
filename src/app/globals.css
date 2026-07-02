@@ -272,6 +272,51 @@ h1 {
   line-height: 1.45;
 }
 
+.dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.dashboard-actions a,
+.dashboard-actions button,
+.form-actions button,
+.secondary-action {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+  padding: 0 16px;
+  background: var(--blue);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dashboard-actions form {
+  margin: 0;
+}
+
+.dashboard-actions a:last-child,
+.dashboard-actions button,
+.secondary-action {
+  border-color: var(--line);
+  background: var(--panel);
+  color: var(--text);
+}
+
+.form-actions button:disabled {
+  border-color: var(--line);
+  background: #edf1ed;
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
 .dashboard-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
@@ -454,6 +499,73 @@ h1 {
   white-space: nowrap;
 }
 
+.auth-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 48px 24px;
+}
+
+.auth-panel {
+  width: min(620px, 100%);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 30px;
+  background: var(--panel);
+}
+
+.auth-panel.wide {
+  width: min(860px, 100%);
+}
+
+.mvp-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.mvp-form.two-column {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.mvp-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.mvp-form input,
+.mvp-form select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 12px;
+  background: #ffffff;
+  color: var(--text);
+  font: inherit;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.full-row {
+  grid-column: 1 / -1;
+}
+
+.form-message {
+  margin: 18px 0 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: var(--soft-blue);
+  color: var(--blue);
+}
+
 @media (max-width: 760px) {
   .shell {
     padding: 32px 16px;
@@ -509,5 +621,13 @@ h1 {
 
   .trip-metrics {
     justify-items: start;
+  }
+
+  .mvp-form.two-column {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-shell {
+    padding: 32px 16px;
   }
 }

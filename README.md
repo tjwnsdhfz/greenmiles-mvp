@@ -80,6 +80,14 @@ Dashboard implementation and read-model setup live in:
 
 The route `/dashboard` renders a demo-ready dashboard without Supabase and uses RLS-scoped live data after Supabase sign-in is wired.
 
+## MVP User Flow
+
+- `/dashboard`: portfolio-ready dashboard with demo data fallback.
+- `/auth`: Supabase email/password sign-in and sign-up.
+- `/trips/new`: authenticated trip entry with CO2e and avoided-emission estimates.
+
+Trip saving requires Supabase env vars and an authenticated user. Demo dashboard viewing does not.
+
 ## Laptop/Desktop Sync
 
 This `greenmiles/` directory is the actual app repository. Use Git to move work between machines. Do not sync active development state through OneDrive.

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
+import { signOut } from "@/app/auth/actions";
 import { getDashboardData } from "@/features/dashboard/data";
 import { demoDashboardData } from "@/features/dashboard/demo-data";
 import {
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
 type DashboardMode = "demo" | "live";
 
 export default async function DashboardPage() {
-  const { data, mode, notice } = await loadDashboard();
+  const { data, mode, notice, signedIn } = await loadDashboard();
   const modeBreakdown = getModeBreakdown(data.recentTrips);
   const trend = getDistanceTrend(data.recentTrips);
   const impact = getImpactStats(data);
@@ -46,6 +48,17 @@ export default async function DashboardPage() {
       </section>
 
       {notice ? <p className="dashboard-notice">{notice}</p> : null}
+
+      <nav className="dashboard-actions" aria-label="Dashboard actions">
+        <Link href="/trips/new">Add trip</Link>
+        {signedIn ? (
+          <form action={signOut}>
+            <button type="submit">Sign out</button>
+          </form>
+        ) : (
+          <Link href="/auth">Sign in</Link>
+        )}
+      </nav>
 
       <section className="metric-grid" aria-label="GreenMiles summary">
         <Metric label="Trips logged" value={formatNumber(data.summary.trip_count)} />
@@ -178,12 +191,14 @@ export default async function DashboardPage() {
 async function loadDashboard(): Promise<{
   data: typeof demoDashboardData;
   mode: DashboardMode;
+  signedIn: boolean;
   notice?: string;
 }> {
   if (!hasSupabaseEnv()) {
     return {
       data: demoDashboardData,
       mode: "demo",
+      signedIn: false,
       notice:
         "Supabase env vars are not configured, so this portfolio build is showing demo data.",
     };
@@ -198,6 +213,7 @@ async function loadDashboard(): Promise<{
     return {
       data: demoDashboardData,
       mode: "demo",
+      signedIn: false,
       notice:
         "No active user session was found. The live dashboard will use RLS-scoped rows after sign-in is added.",
     };
@@ -207,11 +223,13 @@ async function loadDashboard(): Promise<{
     return {
       data: await getDashboardData(supabase, user.id),
       mode: "live",
+      signedIn: true,
     };
   } catch (error) {
     return {
       data: demoDashboardData,
       mode: "demo",
+      signedIn: true,
       notice:
         error instanceof Error
           ? `Live data failed to load: ${error.message}`

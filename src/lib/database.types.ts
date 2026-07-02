@@ -28,6 +28,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       trips: {
         Row: {
@@ -69,6 +70,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
     };
     Views: {
@@ -81,6 +83,7 @@ export type Database = {
           avoided_co2e_kg: number;
           last_trip_on: string | null;
         };
+        Relationships: [];
       };
     };
     Functions: Record<string, never>;
