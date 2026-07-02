@@ -2,21 +2,26 @@
 
 ## Goal
 
-Make GreenMiles presentable for startup-support review and GitHub portfolio use with a working dashboard-first MVP.
+Make GreenMiles presentable for startup-support review and GitHub portfolio use with a dashboard-first MVP.
 
 ## Scope
 
-- Root route redirects to `/dashboard`.
-- `/dashboard` renders meaningful demo data without external services.
-- Dashboard shows core metrics, recent distance, travel mix, impact proxy, and recent trips.
-- Supabase-backed live data remains available when environment values and user sessions are configured.
+- Root route redirects to `/retailer/dashboard`.
+- Dashboard renders meaningful demo data without external services.
+- Dashboard shows purchase claims, reward points, estimated carbon contribution, local-food ratio, reward trend, MRV status, and approved SKU samples.
+- Supporting route shells show the intended QR claim, wallet, farmer SKU, and admin MRV flow.
 
 ## Implemented Files
 
 - `src/app/page.tsx`
-- `src/app/dashboard/page.tsx`
+- `src/app/retailer/dashboard/page.tsx`
+- `src/app/retailer/pos/page.tsx`
+- `src/app/claim/page.tsx`
+- `src/app/consumer/wallet/page.tsx`
+- `src/app/farmer/products/page.tsx`
+- `src/app/admin/mrv/page.tsx`
 - `src/app/globals.css`
-- `src/features/dashboard/demo-data.ts`
+- `src/features/dashboard/data.ts`
 - `src/features/dashboard/metrics.ts`
 
 ## Verification
@@ -24,11 +29,6 @@ Make GreenMiles presentable for startup-support review and GitHub portfolio use 
 ```powershell
 npm run typecheck
 npm run build
+npm run test
 npm audit --omit=dev
 ```
-
-Manual route checks:
-
-- `http://localhost:3000` redirects to `/dashboard`.
-- `http://localhost:3000/dashboard` returns `200`.
-- The dashboard includes demo-data metrics when Supabase env vars are absent.

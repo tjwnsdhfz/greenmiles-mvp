@@ -205,6 +205,11 @@ h1 {
   margin-bottom: 18px;
 }
 
+.metric-grid.compact {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 24px;
+}
+
 .metric-card,
 .dashboard-panel,
 .trip-panel,
@@ -566,6 +571,23 @@ h1 {
   color: var(--blue);
 }
 
+.demo-qr {
+  display: grid;
+  width: 180px;
+  height: 180px;
+  place-items: center;
+  margin: 24px 0;
+  border: 12px solid var(--text);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, transparent 42%, var(--text) 42% 58%, transparent 58%),
+    linear-gradient(transparent 42%, var(--text) 42% 58%, transparent 58%),
+    #ffffff;
+  color: var(--green);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
 @media (max-width: 760px) {
   .shell {
     padding: 32px 16px;
@@ -590,6 +612,10 @@ h1 {
   }
 
   .metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-grid.compact {
     grid-template-columns: 1fr;
   }
 

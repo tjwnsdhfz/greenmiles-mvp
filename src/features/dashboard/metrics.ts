@@ -1,70 +1,53 @@
-import type { DashboardData, RecentTrip } from "./data";
-
-type TravelMode = RecentTrip["travel_mode"];
-
-export const travelModeLabels: Record<TravelMode, string> = {
-  walk: "Walk",
-  bike: "Bike",
-  transit: "Transit",
-  carpool: "Carpool",
-  ev: "EV",
-  car: "Car",
-};
+import type { DashboardData } from "./data";
 
 export function formatNumber(value: number, digits = 0) {
-  return new Intl.NumberFormat("en", {
+  return new Intl.NumberFormat("ko-KR", {
     maximumFractionDigits: digits,
     minimumFractionDigits: digits,
   }).format(value);
 }
 
-export function getModeBreakdown(trips: RecentTrip[]) {
-  const counts = trips.reduce(
-    (accumulator, trip) => {
-      accumulator[trip.travel_mode] += 1;
-      return accumulator;
-    },
+export function getLocalVsLongDistance(data: DashboardData) {
+  const local = data.skus.filter((sku) => sku.distanceKm <= 50).length;
+  const longDistance = data.skus.length - local;
+
+  return [
+    { label: "로컬푸드", value: local, percent: Math.round((local / data.skus.length) * 100) },
     {
-      walk: 0,
-      bike: 0,
-      transit: 0,
-      carpool: 0,
-      ev: 0,
-      car: 0,
-    } satisfies Record<TravelMode, number>,
-  );
-
-  const total = Math.max(trips.length, 1);
-
-  return Object.entries(counts)
-    .map(([mode, count]) => ({
-      mode: mode as TravelMode,
-      label: travelModeLabels[mode as TravelMode],
-      count,
-      percent: Math.round((count / total) * 100),
-    }))
-    .filter((item) => item.count > 0);
+      label: "장거리/비교군",
+      value: longDistance,
+      percent: Math.round((longDistance / data.skus.length) * 100),
+    },
+  ];
 }
 
-export function getDistanceTrend(trips: RecentTrip[]) {
-  return [...trips]
-    .sort((a, b) => a.occurred_on.localeCompare(b.occurred_on))
-    .slice(-6)
-    .map((trip) => ({
-      label: trip.occurred_on.slice(5),
-      distanceKm: trip.distance_km,
+export function getRewardTrend(data: DashboardData) {
+  return [...data.rewardEvents]
+    .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+    .map((event) => ({
+      label: event.createdAt.slice(5),
+      points: event.rewardPoints,
     }));
 }
 
-export function getImpactStats(data: DashboardData) {
-  const averageDistance =
-    data.summary.trip_count > 0
-      ? data.summary.total_distance_km / data.summary.trip_count
-      : 0;
+export function getMrvBreakdown(data: DashboardData) {
+  const counts = data.rewardEvents.reduce(
+    (accumulator, event) => {
+      accumulator[event.mrvStatus] += 1;
+      return accumulator;
+    },
+    {
+      not_submitted: 0,
+      submitted: 0,
+      verified: 0,
+      anchored: 0,
+    },
+  );
 
-  return {
-    averageDistance,
-    carKmAvoided: data.summary.avoided_co2e_kg / 0.192,
-    treeDaysEquivalent: data.summary.avoided_co2e_kg * 45,
-  };
+  return [
+    { label: "대기", value: counts.not_submitted },
+    { label: "제출", value: counts.submitted },
+    { label: "검증", value: counts.verified },
+    { label: "블록체인 기록 완료", value: counts.anchored },
+  ].filter((item) => item.value > 0);
 }

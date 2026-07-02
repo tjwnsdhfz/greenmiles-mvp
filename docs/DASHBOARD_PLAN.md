@@ -1,49 +1,51 @@
 # Dashboard Plan
 
-This document prepares the GreenMiles dashboard implementation without expanding the MVP beyond the auth/RLS foundation.
+This document tracks the dashboard-first MVP implementation for the GreenMiles low-carbon/local agri-food reward platform.
 
 ## Dashboard Purpose
 
-The dashboard should help a founder, reviewer, or authenticated user answer:
+The retailer ESG dashboard should help a founder, reviewer, retailer, or ESG stakeholder answer:
 
-- How many trips have I logged?
-- How many kilometers have I tracked?
-- How much CO2e have I avoided?
-- What were my most recent trips?
-- Is my account/data setup ready?
+- How many QR/receipt purchase claims have been captured?
+- How many GreenMiles points have been issued?
+- What is the estimated carbon contribution from low-carbon/local products?
+- Which SKUs and stores are driving the pilot?
+- What MRV status can be shown without claiming official carbon credits?
 
 ## Initial Data Sources
 
-- `public.trips`
-- `public.trip_dashboard_summary`
+- `public.product_skus`
+- `public.pos_events`
+- `public.purchase_items`
+- `public.reward_events`
+- `public.retailer_dashboard_summary`
 - Supabase Auth user session
 
-The dashboard must read only rows visible to the current authenticated user through RLS. Do not add admin-level aggregate access in the MVP.
+The live dashboard must read only organization-scoped retailer rows visible through RLS. Demo mode uses built-in sample data.
 
 ## First Screen Scope
 
 The first dashboard screen should include:
 
-- Summary metrics.
-- Recent trips table/list.
-- Recent distance bars.
-- Travel-mode mix.
-- CO2e impact proxy.
+- Retailer summary metrics.
+- Reward issue trend.
+- Local-food vs long-distance SKU mix.
+- MRV status breakdown.
+- Approved SKU samples.
 - Demo data fallback when Supabase env vars or user sessions are missing.
-- Empty state when live user data has no trips.
+- Empty state when live user data has no purchase/reward events.
 
 Out of scope for the first dashboard pass:
 
-- Charts with date-range controls.
-- Rewards or gamification.
-- Team/fleet views.
-- Map-based route rendering.
-- Admin analytics.
+- Full date-range filtering.
+- Real POS integration.
+- Automated OCR.
+- Mainnet blockchain anchoring.
+- Legal carbon-credit issuance.
 
 ## Implementation Notes
 
-- Keep dashboard data access in `src/features/dashboard/data.ts`.
-- Keep demo data in `src/features/dashboard/demo-data.ts` so the portfolio build is presentable before Supabase is configured.
+- Keep dashboard demo/read-model data in `src/features/dashboard/data.ts`.
 - Keep derived metrics in `src/features/dashboard/metrics.ts`.
 - Keep Supabase table/view types in `src/lib/database.types.ts` until generated types are wired.
-- Add charting only after the summary and recent-trip read path is stable.
+- Keep route shells aligned with PRD/TRD flows: POS, QR claim, wallet, farmer SKUs, admin MRV.

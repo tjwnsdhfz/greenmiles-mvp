@@ -1,30 +1,49 @@
-# GreenMiles
+# GreenMiles MVP
 
-GreenMiles is a Supabase-backed MVP for tracking trips, mileage, and future sustainability calculations. It is structured as a portfolio-ready founder demo: the dashboard works with built-in demo data first, then switches to Supabase-backed user data when auth and environment values are configured.
+GreenMiles is a dashboard-first MVP for a low-carbon/local agri-food reward platform. It demonstrates how SKU, virtual POS/QR purchase claims, GreenMiles points, estimated carbon contribution, retailer ESG metrics, receipt review, and MRV/testnet anchoring can fit into one startup-support prototype.
+
+The MVP is intentionally careful with wording: it does not issue legal carbon credits. UI and docs use "GreenMiles points", "estimated carbon contribution", "MRV status", and "blockchain record complete".
 
 ## Stack
 
 - Next.js App Router
 - TypeScript
-- Supabase Auth, Postgres, and RLS
+- Supabase Auth, Postgres, RLS, Storage-ready structure
 - npm
+- Vitest for deterministic reward logic tests
+
+## Current Demo Routes
+
+- `/` redirects to `/retailer/dashboard`
+- `/retailer/dashboard`: portfolio-ready retailer ESG dashboard
+- `/retailer/pos`: mock POS/QR event screen
+- `/claim`: consumer QR claim demo
+- `/consumer/wallet`: consumer reward wallet demo
+- `/farmer/products`: producer SKU registration/status shell
+- `/admin/mrv`: MRV batch/status shell
+- `/auth`: Supabase email/password sign-in/sign-up
+
+The dashboard works with built-in demo data when Supabase is not configured. Supabase migrations define the live-data path.
 
 ## MVP Scope
 
-In scope for the MVP:
+In scope:
 
-- Authenticated user sessions.
-- Per-user data isolation through Supabase RLS.
-- User profiles created from Supabase Auth users.
-- A small trips table that can support later mileage and CO2e calculations.
-- A dashboard demo for trips, green distance, mode mix, and avoided CO2e.
+- Authenticated profile foundation and roles: `consumer`, `farmer`, `retailer`, `admin`, `mrv_partner`
+- TRD-aligned Supabase schema and initial RLS policies
+- Low-carbon/local product SKU model
+- Virtual POS / QR claim concept
+- Deterministic reward calculation module
+- Consumer wallet, retailer ESG dashboard, farmer SKU, admin MRV route shells
+- Demo data for startup-support and GitHub portfolio review
 
-Out of scope for this milestone:
+Out of scope for this MVP:
 
-- Rewards, payments, marketplaces, or admin workflows.
-- Native mobile apps.
-- Complex route optimization.
-- Production marketing pages.
+- Legal carbon-credit issuance, trading, or offset claims
+- Mainnet blockchain deployment
+- Real POS API integration
+- Paid OCR/API calls
+- Real personal information or real MRV certification claims
 
 ## Local Setup
 
@@ -34,66 +53,56 @@ Copy-Item .env.example .env.local
 npm run dev
 ```
 
-Open `http://localhost:3000`. The root route redirects to `/dashboard`.
+Open `http://localhost:3000`.
 
-Fill `.env.local` with Supabase values before testing real auth sessions. Without those values, the dashboard uses built-in demo data for portfolio and startup-support presentations.
+Fill `.env.local` with Supabase values before testing real auth sessions. Without those values, the demo routes still render.
 
 ## Supabase
 
-The first migration is:
+Migrations:
 
 ```text
 supabase/migrations/20260702000000_bootstrap_auth_rls.sql
+supabase/migrations/20260702001000_dashboard_read_model.sql
 ```
 
-Apply it with the Supabase CLI after linking or starting a local project:
+Apply locally after installing the Supabase CLI:
 
 ```powershell
 supabase start
 supabase db reset
 ```
 
-or, for a linked remote project:
+or for a linked hosted project:
 
 ```powershell
 supabase link --project-ref <project-ref>
 supabase db push
 ```
 
-## Development Checks
+## Development Commands
 
 ```powershell
 npm run typecheck
 npm run build
+npm run test
+npm audit --omit=dev
 ```
 
-## Dashboard Demo
+## Repository Docs
 
-Dashboard implementation and read-model setup live in:
-
+- `docs/01_PRD_GreenMiles.md`
+- `docs/02_TRD_GreenMiles.md`
+- `docs/03_UserFlow_GreenMiles.md`
+- `docs/05_DevMilestones_GreenMiles.md`
 - `docs/DASHBOARD_PLAN.md`
-- `tasks/02_prepare_dashboard.md`
-- `src/features/dashboard/data.ts`
-- `src/features/dashboard/demo-data.ts`
-- `src/features/dashboard/metrics.ts`
-- `src/app/dashboard/page.tsx`
-
-The route `/dashboard` renders a demo-ready dashboard without Supabase and uses RLS-scoped live data after Supabase sign-in is wired.
-
-## MVP User Flow
-
-- `/dashboard`: portfolio-ready dashboard with demo data fallback.
-- `/auth`: Supabase email/password sign-in and sign-up.
-- `/trips/new`: authenticated trip entry with CO2e and avoided-emission estimates.
-
-Trip saving requires Supabase env vars and an authenticated user. Demo dashboard viewing does not.
-
-## Laptop/Desktop Sync
-
-This `greenmiles/` directory is the actual app repository. Use Git to move work between machines. Do not sync active development state through OneDrive.
-
-See:
-
-- `docs/LOCAL_DEV_SYNC.md`
-- `docs/GIT_WORKFLOW.md`
 - `docs/GITHUB_PORTFOLIO.md`
+- `docs/MVP_DEMO_SCRIPT.md`
+- `docs/MVP_LIMITATIONS.md`
+
+## Safety Rules
+
+- Do not commit `.env.local`, real API keys, service-role keys, private keys, or wallet mnemonics.
+- Do not deploy to production or mainnet from this MVP.
+- Do not store real PII in seed/demo data.
+- Do not represent GreenMiles points as official carbon credits.

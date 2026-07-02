@@ -6,7 +6,7 @@ GreenMiles is ready for GitHub portfolio publishing as a dashboard-first MVP.
 
 - Name: `greenmiles-mvp`
 - Visibility: public for portfolio use, private if the startup-support application requires confidentiality
-- Description: `Dashboard-first MVP for personal green mobility tracking with Supabase Auth and RLS`
+- Description: `Dashboard-first MVP for low-carbon local agri-food rewards with Supabase Auth and RLS`
 
 ## Publish Commands
 

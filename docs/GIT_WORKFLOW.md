@@ -7,7 +7,7 @@ Keep `main` runnable. Use short branches for each task.
 ```text
 task/01-db-auth-rls
 task/02-auth-ui
-fix/rls-trip-owner-policy
+fix/rls-wallet-owner-policy
 ```
 
 ## Daily Start

@@ -24,7 +24,7 @@ export default async function AuthPage({
           <h1>Sign in for live dashboard data</h1>
           <p className="summary">
             Demo mode works without an account. Supabase sign-in enables
-            user-owned trips protected by row-level security.
+            user-owned wallet and purchase reward data protected by row-level security.
           </p>
         </div>
 
