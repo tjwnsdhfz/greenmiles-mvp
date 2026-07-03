@@ -7,7 +7,8 @@
     "build": "next build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check": "npm run typecheck && npm run build && npm run test"
+    "db:verify": "node scripts/verify-bootstrap-db-rls.mjs",
+    "check": "npm run db:verify && npm run typecheck && npm run build && npm run test"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",

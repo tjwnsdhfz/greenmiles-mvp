@@ -64,6 +64,8 @@ Migrations:
 ```text
 supabase/migrations/20260702000000_bootstrap_auth_rls.sql
 supabase/migrations/20260702001000_dashboard_read_model.sql
+supabase/seed.sql
+supabase/rls_smoke.sql
 ```
 
 Apply locally after installing the Supabase CLI:
@@ -73,6 +75,14 @@ supabase start
 supabase db reset
 ```
 
+`supabase db reset` applies the migrations and loads `supabase/seed.sql` for local demo accounts and sample data. The seed data is local-development only and uses `*.demo@greenmiles.local` addresses with a shared demo password.
+
+After reset, run the RLS smoke checks against your local database:
+
+```powershell
+psql $env:DATABASE_URL -f supabase/rls_smoke.sql
+```
+
 or for a linked hosted project:
 
 ```powershell
@@ -80,9 +90,12 @@ supabase link --project-ref <project-ref>
 supabase db push
 ```
 
+Do not push local demo seed users into a production or pilot Supabase project.
+
 ## Development Commands
 
 ```powershell
+npm run db:verify
 npm run typecheck
 npm run build
 npm run test
