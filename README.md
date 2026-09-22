@@ -2,7 +2,7 @@
 
 GreenMiles is a dashboard-first MVP for a low-carbon/local agri-food reward platform. It demonstrates how SKU, virtual POS/QR purchase claims, GreenMiles points, estimated carbon contribution, retailer ESG metrics, receipt review, and MRV/testnet anchoring can fit into one startup-support prototype.
 
-The MVP is intentionally careful with wording: it does not issue legal carbon credits. UI and docs use "GreenMiles points", "estimated carbon contribution", "MRV status", and "blockchain record complete".
+The MVP does not issue legal carbon credits or execute blockchain anchoring. MRV status in the dashboard is a field supplied by the sample or imported file, not independently verified evidence.
 
 ## Stack
 
@@ -15,7 +15,7 @@ The MVP is intentionally careful with wording: it does not issue legal carbon cr
 ## Current Demo Routes
 
 - `/` redirects to `/retailer/dashboard`
-- `/retailer/dashboard`: portfolio-ready retailer ESG dashboard
+- `/retailer/dashboard`: local purchase-record JSON import, filtering, derived totals, and CSV export
 - `/retailer/pos`: mock POS/QR event screen
 - `/claim`: consumer QR claim demo
 - `/consumer/wallet`: consumer reward wallet demo
@@ -23,7 +23,7 @@ The MVP is intentionally careful with wording: it does not issue legal carbon cr
 - `/admin/mrv`: MRV batch/status shell
 - `/auth`: Supabase email/password sign-in/sign-up
 
-The dashboard works with built-in demo data when Supabase is not configured. Supabase migrations define the live-data path.
+The dashboard always starts with labeled demo records. Users can import their own JSON locally; these records remain in browser memory and reset on refresh. Configuring Supabase does not connect the dashboard to live records. Migrations and authentication scaffolding exist, but production integration and RLS behavior still require validation.
 
 ## MVP Scope
 
@@ -106,3 +106,7 @@ npm audit --omit=dev
 - Do not deploy to production or mainnet from this MVP.
 - Do not store real PII in seed/demo data.
 - Do not represent GreenMiles points as official carbon credits.
+
+## 2026-09-22 품질 점검
+
+변경 내용, 재현한 문제, 검증 범위와 남은 한계: [품질 점검 기록](docs/QUALITY_AUDIT_20260922.md).

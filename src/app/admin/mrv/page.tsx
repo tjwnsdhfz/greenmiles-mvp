@@ -17,8 +17,7 @@ export default function AdminMrvPage() {
         <p className="eyebrow">관리자 MRV</p>
         <h1>검증 배치와 블록체인 기록 상태</h1>
         <p className="summary">
-          MVP에서는 개인정보나 구매 상세 내역을 온체인에 저장하지 않고, 검증된
-          배치 해시만 테스트넷 또는 로컬 앵커링 대상으로 다룹니다.
+          DEMO · 아래 상태는 합성 시나리오입니다. 이 화면에서 실제 MRV 제출·검증·블록체인 기록을 실행하지 않습니다.
         </p>
         <div className="impact-list">
           {mrv.map((item) => (

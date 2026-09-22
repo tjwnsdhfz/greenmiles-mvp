@@ -21,10 +21,9 @@ export default function ClaimPage() {
     <main className="auth-shell">
       <section className="auth-panel wide">
         <p className="eyebrow">QR Claim</p>
-        <h1>구매 인증과 리워드 적립</h1>
+        <h1>샘플 구매의 리워드 계산</h1>
         <p className="summary">
-          소비자가 QR을 스캔하면 SKU, 매장, 토큰 상태를 검증하고 결정적
-          리워드 계산 결과를 지갑에 적립합니다.
+          DEMO · 샘플 구매액 12,000원을 시연용 규칙으로 계산합니다. QR 검증·지갑 적립은 아직 연결되지 않았습니다.
         </p>
         <div className="metric-grid compact">
           <article className="metric-card">
@@ -37,10 +36,10 @@ export default function ClaimPage() {
           </article>
         </div>
         <p className="empty-state">
-          샘플 claim 대상: {sku.name} / 중복 claim은 POS 토큰 상태로 차단합니다.
+          샘플 claim 대상: {sku.name} / 토큰 검증과 중복 적립 차단은 아직 구현되지 않았습니다.
         </p>
         <Link className="text-link" href="/consumer/wallet">
-          지갑에서 확인
+          지갑 화면 예시 보기
         </Link>
       </section>
     </main>

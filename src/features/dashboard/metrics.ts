@@ -12,11 +12,11 @@ export function getLocalVsLongDistance(data: DashboardData) {
   const longDistance = data.skus.length - local;
 
   return [
-    { label: "로컬푸드", value: local, percent: Math.round((local / data.skus.length) * 100) },
+    { label: "로컬푸드", value: local, percent: data.skus.length ? Math.round((local / data.skus.length) * 100) : 0 },
     {
       label: "장거리/비교군",
       value: longDistance,
-      percent: Math.round((longDistance / data.skus.length) * 100),
+      percent: data.skus.length ? Math.round((longDistance / data.skus.length) * 100) : 0,
     },
   ];
 }

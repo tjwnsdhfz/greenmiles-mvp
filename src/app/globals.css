@@ -657,3 +657,17 @@ h1 {
     padding: 32px 16px;
   }
 }
+
+.record-filters { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; margin: 24px 0; }
+.record-filters label { display: grid; gap: 8px; flex: 1 1 180px; font-size: .9rem; }
+.record-filters input, .record-filters select, .record-filters button, .section-heading button { min-height: 44px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--text); font: inherit; }
+.records-scroll { overflow-x: auto; }
+.records-table { width: 100%; border-collapse: collapse; text-align: left; font-size: .9rem; }
+.records-table caption { text-align: left; padding-bottom: 16px; color: var(--muted); }
+.records-table th, .records-table td { padding: 14px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.records-table td { font-variant-numeric: tabular-nums; }
+.records-table small { display: block; margin-top: 5px; color: var(--muted); font-weight: 400; }
+.section-heading h2 { margin: 0; font-size: 1.2rem; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+@media (max-width: 600px) { .section-heading { flex-wrap: wrap; gap: 12px; } .records-table { min-width: 660px; } }

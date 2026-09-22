@@ -15,8 +15,7 @@ export default function FarmerProductsPage() {
           <p className="eyebrow">생산자 상품</p>
           <h1>저탄소 SKU 등록 현황</h1>
           <p className="summary">
-            농가와 생산자가 저탄소 인증, 산지, 생산 방식 정보를 등록하고
-            유통사 승인 흐름으로 넘기는 화면입니다.
+            DEMO · 등록·승인 기능 연결 전의 상품 샘플입니다. 표시된 농가·인증 상태는 실제 등록 또는 인증 증빙이 아닙니다.
           </p>
         </div>
         <Link className="secondary-action" href="/retailer/dashboard">

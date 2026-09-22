@@ -25,7 +25,7 @@ export default function ConsumerWalletPage() {
         <h1>GreenMiles 포인트와 예상 탄소 기여도</h1>
         <div className="metric-grid compact">
           <article className="metric-card">
-            <span>포인트 잔액</span>
+            <span>샘플 포인트 합계</span>
             <strong>{formatNumber(balance)}P</strong>
           </article>
           <article className="metric-card">
@@ -34,8 +34,7 @@ export default function ConsumerWalletPage() {
           </article>
         </div>
         <p className="empty-state">
-          MVP에서는 QR claim과 영수증 승인 후 지갑 원장에 포인트가 적립되는
-          흐름을 시연합니다.
+          DEMO · 여러 소비자의 합성 이벤트를 합산한 화면 예시입니다. 로그인한 사용자의 실제 잔액이나 적립 원장이 아닙니다.
         </p>
         <Link className="text-link" href="/retailer/dashboard">
           대시보드로 돌아가기
