@@ -25,6 +25,8 @@ The MVP does not issue legal carbon credits or execute blockchain anchoring. MRV
 
 The dashboard always starts with labeled demo records. Users can import their own JSON locally; these records remain in browser memory and reset on refresh. Configuring Supabase does not connect the dashboard to live records. Migrations and authentication scaffolding exist, but production integration and RLS behavior still require validation.
 
+Imported MRV statuses include `not_submitted`, `submitted`, `verified`, `rejected`, and `anchored`. Rejected records can be filtered, counted, exported, and restored; these remain file-provided labels, not a live MRV verification service.
+
 ## MVP Scope
 
 In scope:

@@ -48,7 +48,7 @@ export function parseRecords(text: string): RewardEvent[] {
     if (!Number.isSafeInteger(row.rewardPoints) || Number(row.rewardPoints) < 0 || Number(row.rewardPoints) > 1e12 ||
       typeof row.carbonContributionKg !== "number" || !Number.isFinite(row.carbonContributionKg) ||
       row.carbonContributionKg < 0 || row.carbonContributionKg > 1e9) throw new Error(`${index + 1}행: 포인트·기여도 수치를 확인해 주세요.`);
-    if (!["not_submitted", "submitted", "verified", "anchored"].includes(String(row.mrvStatus))) throw new Error(`${index + 1}행: MRV 상태 값을 확인해 주세요.`);
+    if (!["not_submitted", "submitted", "verified", "rejected", "anchored"].includes(String(row.mrvStatus))) throw new Error(`${index + 1}행: MRV 상태 값을 확인해 주세요.`);
     if (ids.has(String(row.id))) throw new Error(`${index + 1}행: 중복 기록 ID입니다.`);
     ids.add(String(row.id));
     return { id: String(row.id), consumerLabel: String(row.consumerLabel), skuName: String(row.skuName),

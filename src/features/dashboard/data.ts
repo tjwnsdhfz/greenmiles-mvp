@@ -30,7 +30,7 @@ export type RewardEvent = {
   storeName: string;
   rewardPoints: number;
   carbonContributionKg: number;
-  mrvStatus: "not_submitted" | "submitted" | "verified" | "anchored";
+  mrvStatus: "not_submitted" | "submitted" | "verified" | "rejected" | "anchored";
   createdAt: string;
 };
 

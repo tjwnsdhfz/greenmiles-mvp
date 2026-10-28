@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { demoDashboardData } from "./data";
 import { eventsCsv, filterEvents, parseRecords, summarizeEvents } from "./records";
-import { getLocalVsLongDistance } from "./metrics";
+import { getLocalVsLongDistance, getMrvBreakdown } from "./metrics";
+import { readRecordFile, writeRecordFile } from "./record-files";
 describe("reviewable dashboard records", () => {
   it("imports real user records without promoting their evidence state", () => {
     const input = JSON.stringify(demoDashboardData.rewardEvents);
@@ -22,6 +23,14 @@ describe("reviewable dashboard records", () => {
     const filtered = filterEvents(demoDashboardData.rewardEvents, event.storeName, event.mrvStatus, event.id);
     expect(filtered).toEqual([event]);
     expect(summarizeEvents(filtered)).toMatchObject({ count: 1, points: event.rewardPoints, contribution: event.carbonContributionKg });
+  });
+  it("preserves rejected MRV records through import, filtering, aggregation and backup", () => {
+    const rejected = { ...demoDashboardData.rewardEvents[0], mrvStatus: "rejected" as const };
+    const records = parseRecords(JSON.stringify([rejected]));
+    expect(filterEvents(records, "", "rejected", "")).toEqual([rejected]);
+    expect(getMrvBreakdown({ ...demoDashboardData, rewardEvents: records })).toEqual([{ label: "반려", value: 1 }]);
+    expect(eventsCsv(records, "USER_INPUT")).toContain('"rejected"');
+    expect(readRecordFile(writeRecordFile(records, "USER_INPUT"))).toEqual({ records: [rejected], source: "USER_INPUT" });
   });
   it("handles empty search results without fabricated totals or NaN", () => {
     expect(summarizeEvents([])).toEqual({ count: 0, points: 0, contribution: 0, pending: 0 });
