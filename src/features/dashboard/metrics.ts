@@ -40,6 +40,7 @@ export function getMrvBreakdown(data: DashboardData) {
       not_submitted: 0,
       submitted: 0,
       verified: 0,
+      rejected: 0,
       anchored: 0,
     },
   );
@@ -48,6 +49,7 @@ export function getMrvBreakdown(data: DashboardData) {
     { label: "대기", value: counts.not_submitted },
     { label: "제출", value: counts.submitted },
     { label: "검증", value: counts.verified },
+    { label: "반려", value: counts.rejected },
     { label: "블록체인 기록 완료", value: counts.anchored },
   ].filter((item) => item.value > 0);
 }

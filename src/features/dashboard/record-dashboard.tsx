@@ -9,7 +9,7 @@ import { eventsCsv, filterEvents, summarizeEvents } from "./records";
 import RecordEditor from "./record-editor";
 import { readRecordFile, writeRecordFile, reviseRecord, LOCAL_RECORD_KEY, type RecordSource, type RecordFile } from "./record-files";
 
-const labels = { not_submitted: "미제출", submitted: "제출", verified: "검증", anchored: "기록" };
+const labels = { not_submitted: "미제출", submitted: "제출", verified: "검증", rejected: "반려", anchored: "기록" };
 
 export default function RecordDashboard() {
   const [store, setStore] = useState("");
